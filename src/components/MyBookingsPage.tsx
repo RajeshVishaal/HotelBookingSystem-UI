@@ -18,7 +18,7 @@ import { useAuth } from '../context/AuthContext';
 import { getUserBookings } from '../services/api';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import PeopleIcon from '@mui/icons-material/People';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import EventIcon from '@mui/icons-material/Event';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 
 interface Booking {
@@ -203,7 +203,7 @@ const MyBookingsPage: React.FC = () => {
                     </Box>
                     <Box sx={{ textAlign: 'right' }}>
                       <Typography variant="h5" color="primary" sx={{ fontWeight: 700 }}>
-                        ${(booking.totalCost || 0).toFixed(2)}
+                        £{(booking.totalCost || 0).toFixed(2)}
                       </Typography>
                       <Typography variant="caption" color="text.secondary">
                         Total Cost
@@ -252,7 +252,7 @@ const MyBookingsPage: React.FC = () => {
 
                     <Box>
                       <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                        <AttachMoneyIcon fontSize="small" color="action" />
+                        <EventIcon fontSize="small" color="action" />
                         <Typography variant="body2" color="text.secondary">
                           Booked on:
                         </Typography>
@@ -270,7 +270,7 @@ const MyBookingsPage: React.FC = () => {
                       </Typography>
                       {booking.rooms.map((room: any, index: number) => (
                         <Typography key={index} variant="body2" sx={{ ml: 2, fontWeight: 500, color: '#1a1a1a' }}>
-                          • {room.quantity}x Room - ${room.baseRate?.toFixed(2) || (room.subtotal / room.quantity).toFixed(2)} per night
+                          • {room.quantity}x Room - £{room.baseRate?.toFixed(2) || (room.subtotal / room.quantity).toFixed(2)} per night
                         </Typography>
                       ))}
                     </Box>

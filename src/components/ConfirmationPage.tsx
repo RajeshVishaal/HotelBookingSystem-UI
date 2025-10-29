@@ -209,11 +209,11 @@ const ConfirmationPage: React.FC = () => {
                     {room.roomType} x {room.quantity}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    ${room.price.toFixed(2)} per night
+                    £{room.price.toFixed(2)} per night
                   </Typography>
                 </Box>
                 <Typography variant="body1" sx={{ fontWeight: 700 }}>
-                  ${(room.subtotal || room.price * room.quantity).toFixed(2)}
+                  £{(room.subtotal || room.price * room.quantity).toFixed(2)}
                 </Typography>
               </Box>
             ))}
@@ -234,7 +234,7 @@ const ConfirmationPage: React.FC = () => {
                   Total Guests
                 </Typography>
                 <Typography variant="h6" fontWeight="bold">
-                  {(bookingData.guests?.adults || 0) + (bookingData.guests?.children || 0)} Guest{((bookingData.guests?.adults || 0) + (bookingData.guests?.children || 0)) !== 1 ? 's' : ''}
+                  {bookingData.guests} Guest{bookingData.guests === 1 ? '' : 's'}
                 </Typography>
               </Box>
               <Box sx={{ textAlign: 'right' }}>
@@ -242,7 +242,7 @@ const ConfirmationPage: React.FC = () => {
                   Total Cost
                 </Typography>
                 <Typography variant="h5" fontWeight="bold" color="primary">
-                  ${typeof bookingData.totalCost === 'number' ? bookingData.totalCost.toFixed(2) : bookingData.totalCost}
+                  £{typeof bookingData.totalCost === 'number' ? bookingData.totalCost.toFixed(2) : bookingData.totalCost}
                 </Typography>
               </Box>
             </Box>

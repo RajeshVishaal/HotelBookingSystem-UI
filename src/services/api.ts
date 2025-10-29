@@ -70,9 +70,7 @@ export interface SearchParams {
   children: number;
 }
 
-export const API_BASE_URL = import.meta.env.PROD 
-  ? 'https://a4f0-2a09-bac5-d45a-1838-00-1b4-1af.ngrok-free.app/api/v1'
-  : '/api/v1';
+export const API_BASE_URL = '/api/v1';
 
 export const generateIdempotencyKey = (): string => {
   return `booking-${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
@@ -167,12 +165,9 @@ export const reserveBooking = async (
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Origin': window.location.origin,
         'Idempotency-Key': idempotencyKey,
       },
       body: JSON.stringify(bookingData),
-      mode: 'cors',
-      credentials: 'omit'
     });
 
     const data = await response.json();
@@ -213,11 +208,7 @@ export const getHotelById = async (
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'ngrok-skip-browser-warning': '1',
-          'Origin': window.location.origin,
         },
-        mode: 'cors',
-        credentials: 'omit'
       }
     );
 
@@ -263,11 +254,7 @@ export const searchHotels = async (params: SearchParams, pageNo: number = 1, pag
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'ngrok-skip-browser-warning': '1',
-        'Origin': window.location.origin,
       },
-      mode: 'cors',
-      credentials: 'omit'
     });
 
     if (!response.ok) {
@@ -311,7 +298,6 @@ export const checkRoomAvailability = async (
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'ngrok-skip-browser-warning': '1',
         },
         body: JSON.stringify(request),
       }
@@ -357,11 +343,8 @@ export const login = async (credentials: LoginCredentials): Promise<LoginRespons
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Origin': window.location.origin,
       },
       body: JSON.stringify(credentials),
-      mode: 'cors',
-      credentials: 'omit'
     });
 
     const data = await response.json();
@@ -412,10 +395,7 @@ export const getUserByEmail = async (email: string): Promise<{
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Origin': window.location.origin,
       },
-      mode: 'cors',
-      credentials: 'omit'
     });
 
     const data = await response.json();
@@ -451,10 +431,7 @@ export const getUserBookings = async (userId: string): Promise<{
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Origin': window.location.origin,
       },
-      mode: 'cors',
-      credentials: 'omit'
     });
 
     const data = await response.json();

@@ -74,22 +74,34 @@ const Navbar: React.FC = () => {
     <AppBar position="static" sx={{ bgcolor: '#003580', padding: { xs: '8px 0', sm: '12px 0' } }}>
       <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3 } }}>
         <Toolbar disableGutters sx={{ justifyContent: 'space-between', minHeight: 'auto' }}>
-          <Typography 
-            variant="h5" 
-            fontWeight="bold" 
-            onClick={handleLogoClick}
-            sx={{ 
-              fontSize: { xs: '1.3rem', sm: '1.5rem' }, 
-              color: 'white', 
-              cursor: 'pointer',
-              fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
-              '&:hover': {
-                opacity: 0.9
-              }
-            }}
-          >
-            OverBooked()
-          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Typography 
+              variant="h5" 
+              fontWeight="bold" 
+              onClick={handleLogoClick}
+              sx={{ 
+                fontSize: { xs: '1.3rem', sm: '1.5rem' }, 
+                color: 'white', 
+                cursor: 'pointer',
+                fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+                '&:hover': {
+                  opacity: 0.9
+                }
+              }}
+            >
+              OverBooked.com
+            </Typography>
+            <Typography 
+              sx={{ 
+                color: 'white',
+                fontWeight: 700,
+                fontSize: '0.7rem',
+                letterSpacing: '0.5px'
+              }}
+            >
+              UK
+            </Typography>
+          </Box>
           <Stack direction="row" spacing={{ xs: 2, sm: 3 }} alignItems="center">
             {}
             <Link 

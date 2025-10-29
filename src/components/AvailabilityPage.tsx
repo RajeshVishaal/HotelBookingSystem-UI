@@ -86,6 +86,8 @@ const AvailabilityPage: React.FC = () => {
   const [checkingAvailability, setCheckingAvailability] = useState(false);
   const [availabilityError, setAvailabilityError] = useState<string | null>(null);
   
+  const reviewsRef = React.useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
     setSearchState(prev => ({
       ...prev,
@@ -198,9 +200,9 @@ const AvailabilityPage: React.FC = () => {
     const fetchHotelDetails = async () => {
       const urlParams = new URLSearchParams(window.location.search);
       const hotelId = state?.hotelId || urlParams.get('hotelId');
-      const checkIn = state?.checkIn || urlParams.get('checkIn') || searchState.dateRange.startDate?.toISOString().split('T')[0];
-      const checkOut = state?.checkOut || urlParams.get('checkOut') || searchState.dateRange.endDate?.toISOString().split('T')[0];
-      const guests = state?.guests || urlParams.get('guests') || String(searchState.guestInfo.adults + searchState.guestInfo.children);
+      const checkIn = state?.checkIn || urlParams.get('checkIn');
+      const checkOut = state?.checkOut || urlParams.get('checkOut');
+      const guests = state?.guests || urlParams.get('guests') || '2';
 
       setTotalGuests(parseInt(guests) || 2);
 
@@ -242,7 +244,7 @@ const AvailabilityPage: React.FC = () => {
     };
 
     fetchHotelDetails();
-  }, [state, searchState.dateRange, searchState.guestInfo]);
+  }, [state]);
 
   if (loading) {
     return (
@@ -306,7 +308,24 @@ const AvailabilityPage: React.FC = () => {
                 color="primary"
                 sx={{ fontWeight: 700 }}
               />
-              <Typography variant="body2" sx={{ color: '#424242', fontWeight: 500 }}>
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  color: '#0071c2', 
+                  fontWeight: 500,
+                  cursor: 'pointer',
+                  textDecoration: 'underline',
+                  '&:hover': {
+                    color: '#005999'
+                  }
+                }}
+                onClick={() => {
+                  reviewsRef.current?.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                  });
+                }}
+              >
                 {hotelDetails.totalReviews || 0} reviews
               </Typography>
             </Box>
@@ -585,7 +604,7 @@ const AvailabilityPage: React.FC = () => {
               <Box sx={{ mt: 'auto', pt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Box>
                   <Typography variant="h6" color="primary">
-                    ${room.baseRate.toFixed(2)}
+                    £{room.baseRate.toFixed(2)}
                   </Typography>
                   <Typography variant="caption">per night</Typography>
                 </Box>
@@ -670,7 +689,7 @@ const AvailabilityPage: React.FC = () => {
         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
           <Box sx={{ mr: 3 }}>
             <Typography variant="h6">
-              Total: ${selectedRooms.reduce((sum, room) => sum + (room.price * room.quantity), 0).toFixed(2)}
+              Total: £{selectedRooms.reduce((sum, room) => sum + (room.price * room.quantity), 0).toFixed(2)}
             </Typography>
             <Typography variant="caption">
               {selectedRooms.reduce((sum, room) => sum + room.quantity, 0)} room(s) selected
@@ -741,7 +760,8 @@ const AvailabilityPage: React.FC = () => {
                         time: '11:00'
                       }
                     },
-                    roomInfo: selectedRooms
+                    roomInfo: selectedRooms,
+                    totalGuests: totalGuests
                   }
                 });
               } catch (error) {
@@ -761,7 +781,7 @@ const AvailabilityPage: React.FC = () => {
 
       {}
       {hotelDetails && (
-        <Box sx={{ mt: 6 }}>
+        <Box ref={reviewsRef} sx={{ mt: 6, scrollMarginTop: '100px' }}>
           <Typography variant="h5" sx={{ mb: 4, fontWeight: 700, color: '#1a1a1a' }}>
             Guest Reviews
           </Typography>

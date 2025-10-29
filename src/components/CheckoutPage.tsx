@@ -172,10 +172,7 @@ const CheckoutPage: React.FC = () => {
           }))
         : [];
       
-      const totalGuests = bookingState.roomInfo.reduce(
-        (sum: number, room: RoomInfo) => sum + (room.maxGuests || 2) * room.quantity,
-        2
-      );
+      const totalGuests = bookingState.totalGuests ?? 2;
 
       const bookingData = {
         hotelId: bookingState.hotelInfo.hotelId,
@@ -217,10 +214,7 @@ const CheckoutPage: React.FC = () => {
           })),
           checkIn: apiData.checkIn || bookingState.bookingDates.checkIn.date,
           checkOut: apiData.checkOut || bookingState.bookingDates.checkOut.date,
-          guests: {
-            adults: apiData.guests || totalGuests,
-            children: 0
-          },
+          guests: apiData.guests || totalGuests,
           totalCost: apiData.totalCost || bookingState.roomInfo.reduce((sum: number, room: RoomInfo) => sum + (room.price * room.quantity), 0),
           createdAt: apiData.createdAt
         };
@@ -471,7 +465,7 @@ const CheckoutPage: React.FC = () => {
                         {room.roomType} x {room.quantity}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        ${room.price.toFixed(2)} per night
+                        £{room.price.toFixed(2)} per night
                       </Typography>
                     </Box>
                   ))
@@ -486,7 +480,7 @@ const CheckoutPage: React.FC = () => {
                     Total price
                   </Typography>
                   <Typography variant="h6" color="primary">
-                    ${Array.isArray(bookingState.roomInfo) 
+                    £{Array.isArray(bookingState.roomInfo) 
                       ? bookingState.roomInfo.reduce((sum: number, room: RoomInfo) => sum + (room.price * room.quantity), 0).toFixed(2)
                       : "0.00"}
                   </Typography>
