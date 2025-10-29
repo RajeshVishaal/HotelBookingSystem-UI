@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  font-family: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #1a1a1a;
+}
+
+* {
+  font-family: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+/* Make all text darker and more visible */
+h1, h2, h3, h4, h5, h6 {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+p {
+  color: #424242;
+}
+
+/* MUI Typography overrides for better visibility */
+/* Removed global override - use specific overrides instead */
+
+.MuiTypography-body1,
+.MuiTypography-body2 {
+  color: #424242;
+  font-weight: 400;
+}
+
+.MuiTypography-h6 {
+  font-weight: 600;
+}
+
+/* Make input text darker */
+.MuiInputBase-input {
+  color: #1a1a1a;
+  font-weight: 400;
+}
+
+/* Make labels darker */
+.MuiInputLabel-root {
+  color: #616161;
+  font-weight: 500;
+}
